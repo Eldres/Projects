@@ -41,61 +41,55 @@ int main()
 {
 	vector <vector<int> > firstMatrix;
 	vector <vector<int> > secondMatrix;
-	int userInputFMRow; //input for the first matrix row
-	int userInputFMCol; //input for the first matrix col
-	int userInputSMRow; //input for the second matrix row
-	int userInputSMCol; //input for the second matrix col
+	int inputSizeFMRow; //input for size of first matrix row
+	int inputSizeFMCol; //input for size of first matrix col
+	int inputSizeSMRow; //input for size of second matrix row
+	int inputSizeSMCol; //input for size of second matrix col
+	int userInput; //elements provided by the user
 
 	cout << "Please enter the row size of the first matrix: ";
-	cin >> userInputFMRow;
+	cin >> inputSizeFMRow;
 	cout << "Please enter the column size of the first matrix: ";
-	cin >> userInputFMCol;
+	cin >> inputSizeFMCol;
 
 
 
-	cout << "Now please enter the elements of the first matrix.\n ";
-	for (int row1 = 0; row1 < userInputFMRow; row1++)
+	cout << "Now please enter the elements of the first matrix.\n";
+	for (int row = 0; row < inputSizeFMRow; row++)
 	{
-		cout << "Row " << row1 + 1 << endl;
-		for (int col1 = 0; col1 < userInputFMCol; col1++)
+		cout << "Row: ";
+		cin >> userInput;
+		firstMatrix.push_back(vector<int> (userInput));
+		for (int col = 0; col < inputSizeFMCol; col++)
 		{
-			if (col1 == 0)
-			{
-				cout << "\t Col " << col1 + 1 << endl;
-			}
-			else 
-			{
-				cout << "\t \t" << col1 + 1 << endl;
-			}
-			cin >> firstMatrix[row1][col1]; //gives error on runtime, vector subscript out of range
+			cout << "Column: ";
+			cin >> userInput;
+			firstMatrix[row].push_back(userInput);
 		}
 	}
 
 	cout << "Please enter the row size of the second matrix: ";
-	cin >> userInputSMRow;
+	cin >> inputSizeSMRow;
 	cout << "Please enter the column size of the second matrix: ";
-	cin >> userInputSMCol;
+	cin >> inputSizeSMCol;
 
-	if (userInputFMRow != userInputSMCol)
+	if (inputSizeFMRow != inputSizeSMCol)
 	{
 		cout << "Matrices with entered sizes cannot be multiplied together.\n";
 	}
 	else
 	{
-		for (int row2 = 0; row2 < userInputSMRow; row2++)
+		cout << "Now please enter the elements of the second matrix.\n";
+		for (int row = 0; row < inputSizeSMRow; row++)
 		{
-			cout << "Row " << row2 + 1 << endl;
-			for (int col2 = 0; col2 < userInputSMCol; col2++)
+			cout << "Row: ";
+			cin >> userInput;
+			secondMatrix.push_back(vector<int>(userInput));
+			for (int col = 0; col < inputSizeSMCol; col++)
 			{
-				if (col2 == 0)
-				{
-					cout << "\t Col " << col2 + 1 << endl;
-				}
-				else
-				{
-					cout << "\t \t" << col2 + 1 << endl;
-				}
-				cin >> secondMatrix[row2][col2]; //gives error on runtime, vector subscript out of range
+				cout << "Column: ";
+				cin >> userInput;
+				secondMatrix[row].push_back(row*col);
 			}
 		}
 		vector <vector<int> > multiMatrix = vectorMultiply(firstMatrix, secondMatrix);
