@@ -57,12 +57,8 @@ int main()
 	cout << "Now please enter the elements of the first matrix.\n";
 	for (int row = 0; row < inputSizeFMRow; row++)
 	{
-		cout << "Row: ";
-		cin >> userInput;
-		firstMatrix.push_back(vector<int> (userInput));
 		for (int col = 0; col < inputSizeFMCol; col++)
-		{
-			cout << "Column: ";
+         {
 			cin >> userInput;
 			firstMatrix[row].push_back(userInput);
 		}
