@@ -1,4 +1,0 @@
-Matrix multiplication: Write a C++ program to compute the product of two matrices. You are required to use the template class vector to represent a matrix. (See matrix.cpp on the main course page, which is an example of how to create and initialize a 2d-matrix using vectors.) Specifically, your program will include the main( ) function and a second function multiply_matrices( ). The main() function will: 
-	* allow the user to choose the size of the matrices, and subsequently the content of A and B
-	* call the multiply_matrices() function to compute the product of A and B 
-	* print out the multiplication result.
