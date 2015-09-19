@@ -1,0 +1,62 @@
+#include <iostream>
+#include <conio.h>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+const int MAX_SIZE = 100;
+
+void selectionSort(int[], int&);
+void readData(int[], int&);
+void printVector(int[], int&);
+
+void selectionSort(int array[], int &n)
+{
+	int minIndex;
+
+	for (int i = 0; i < n; ++i) 
+	{
+		minIndex = i;
+		for (int j = i + 1; j < n; ++j)
+		{
+			if (array[j] < array[minIndex])
+			{
+				minIndex = j;
+			}
+		}
+		swap(array[i], array[minIndex]); //swaps the index location of array[i] with the index location of array[j]
+	}
+}
+
+void readData(int array[], int &n)
+{
+	cout << "Enter how many numbers you want to sort: ";
+	cin >> n;
+	for (int i = 0; i < n; ++i)
+	{
+		cout << "\nEnter number:";
+		cin >> array[i];
+	}
+}
+
+void printVector(int array[], int &n) 
+{
+	cout << "\nHere are the numbers after they have been sorted: " << endl;
+	for (int i = 0; i < n; ++i)
+	{
+		cout << array[i] << "\t";
+	}
+}
+
+int main()
+{
+	int data[MAX_SIZE];
+	int num;
+	cout << "\nNumber sorting\n";
+	readData(data, num);
+	selectionSort(data, num);
+	printVector(data, num);
+	_getch();
+
+	return 0;
+}
