@@ -1,0 +1,649 @@
+package PJ4;
+
+import java.util.*;
+
+/* This is the main poker game class.
+ * It uses Decks and Card objects to implement poker game.
+ * Please do not modify any data fields or defined methods
+ * You may add new data fields and methods
+ * Note: You must implement defined methods
+ */
+
+public class MyPokerGame {
+
+	// default constant values
+	private static final int startingBalance = 1000;
+	private static final int numberOfCards = 5;
+
+	// default constant payout value and currentHand types
+	private static final int[] multipliers = { 1, 2, 3, 5, 6, 9, 25, 50, 250 };
+	private static final String[] goodHandTypes = { "Royal Pair", "Two Pairs",
+			"Three of a Kind", "Straight", "Flush     ", "Full House",
+			"Four of a Kind", "Straight Flush", "Royal Flush",
+			"Sorry, you lost." };
+
+	// must use only one deck
+	private static Decks oneDeck = new Decks(1);
+
+	// holding current poker 5-card hand, balance, bet
+	private static List<Card> currentHand;
+	private int balance;
+	private int bet;
+	private boolean playing = true;
+	private static List<Integer> discard;
+
+	/** default constructor, set balance = startingBalance */
+	public MyPokerGame() {
+		this(startingBalance);
+	}
+
+	/** constructor, set given balance */
+	public MyPokerGame(int balance) {
+		this.balance = balance;
+	}
+
+	/**
+	 * This display the payout table based on multipliers and goodHandTypes
+	 * arrays
+	 */
+	private void showPayoutTable() {
+		System.out.println("\n\n");
+		System.out.println("Payout Table   	      Multiplier   ");
+		System.out.println("=======================================");
+		int size = multipliers.length;
+		for (int i = size - 1; i >= 0; i--) {
+			System.out.println(goodHandTypes[i] + "\t|\t" + multipliers[i]);
+		}
+		// System.out.println("\n\n");
+		System.out.println("\n\n=========================");
+	}
+
+	private void askShowPayoutTable() {
+
+		boolean loop = true;
+		boolean repeat = true;
+		Scanner input = new Scanner(System.in);
+
+		while (loop) {
+			System.out
+					.println("Would you like to see the payout table (y or n)?");
+			String playAgain = input.next();
+
+			if (playAgain.equalsIgnoreCase("y")) {
+				repeat = true;
+				loop = false;
+			}
+
+			else if (playAgain.equalsIgnoreCase("n")) {
+				repeat = false;
+				loop = false;
+			} else
+				System.out.println("Invalid input. Enter y or n only.");
+		}
+		if (repeat)
+			showPayoutTable();
+	}
+
+	/**
+	 * Check current currentHand using multipliers and goodHandTypes arrays Must
+	 * print yourHandType (default is "Sorry, you lost") at the end of function.
+	 * This can be checked by testCheckHands() and main() method.
+	 */
+
+	private static void sortByNumber(List currentHand) {
+		Card[] cardArray = new Card[currentHand.size()];
+
+		for (int i = 0; i < cardArray.length; i++) {
+			cardArray[i] = (Card) currentHand.get(i);
+		}
+
+		int n, j, minimum;
+		for (n = 0; n < cardArray.length; n++) {
+			minimum = n;
+			for (j = n + 1; j < cardArray.length; j++) {
+				if (cardArray[j].getRank() < cardArray[minimum].getRank())
+					minimum = j;
+			}
+			Card tempCard = cardArray[n];
+			cardArray[n] = cardArray[minimum];
+			cardArray[minimum] = tempCard;
+		}
+
+		currentHand.clear();
+		for (int k = 0; k < cardArray.length; k++) {
+			currentHand.add(cardArray[k]);
+		}
+	}
+
+	private static void sortBySuit(List currentHand) {
+		Card[] cardArray = new Card[currentHand.size()];
+
+		for (int i = 0; i < cardArray.length; i++) {
+			cardArray[i] = (Card) currentHand.get(i);
+		}
+
+		int n, j, minimum;
+		for (n = 0; n < cardArray.length; n++) {
+			minimum = n;
+			for (j = n + 1; j < cardArray.length; j++) {
+				if (cardArray[j].getSuit() < cardArray[minimum].getSuit())
+					minimum = j;
+			}
+			Card tempCard = cardArray[n];
+			cardArray[n] = cardArray[minimum];
+			cardArray[minimum] = tempCard;
+		}
+
+		currentHand.clear();
+		for (int i = 0; i < cardArray.length; i++) {
+			currentHand.add(cardArray[i]);
+		}
+	}
+
+	private static boolean isOnePair(List currentHand) {
+
+		sortByNumber(currentHand);
+
+		Card[] cardArray = new Card[currentHand.size()];
+
+		for (int i = 0; i < cardArray.length; i++) {
+			cardArray[i] = (Card) currentHand.get(i);
+		}
+
+		int pairs = 0;
+		int count = 0;
+
+		for (int j = 1; j < 13; j++) {
+			for (int i = 0; i < 5; i++) {
+				if (cardArray[i].getRank() == j) {
+					count++;
+				}
+			}
+			if (count == 2)
+				pairs++;
+			count = 0;
+		}
+		if (pairs == 1)
+			return true;
+		else
+			return false;
+	}
+
+	private static boolean isRoyalPair(List currentHand) {
+
+		sortByNumber(currentHand);
+
+		Card[] cardArray = new Card[currentHand.size()];
+
+		for (int i = 0; i < cardArray.length; i++) {
+			cardArray[i] = (Card) currentHand.get(i);
+		}
+
+		int pairs = 0;
+		int count = 0;
+
+		for (int j = 11; j < 14; j++) {
+			for (int i = 0; i < 5; i++) {
+				if (cardArray[i].getRank() == j) {
+					count++;
+				}
+			}
+			if (count == 2)
+				pairs++;
+			count = 0;
+		}
+		if (pairs == 1)
+			return true;
+		else
+			return false;
+	}
+
+	private static boolean isTwoPair(List currentHand) {
+
+		sortByNumber(currentHand);
+		Card[] cardArray = new Card[currentHand.size()];
+
+		for (int i = 0; i < cardArray.length; i++) {
+			cardArray[i] = (Card) currentHand.get(i);
+		}
+		if (cardArray.length != 5)
+			return (false);
+
+		boolean a1, a2, a3;
+
+		if (cardArray.length != 5)
+			return (false);
+
+		a1 = cardArray[0].getRank() == cardArray[1].getRank()
+				&& cardArray[2].getRank() == cardArray[3].getRank()
+				&& cardArray[4].getRank() != cardArray[0].getRank()
+				&& cardArray[4].getRank() != cardArray[2].getRank();
+
+		a2 = cardArray[0].getRank() == cardArray[1].getRank()
+				&& cardArray[3].getRank() == cardArray[4].getRank()
+				&& cardArray[2].getRank() != cardArray[1].getRank()
+				&& cardArray[2].getRank() != cardArray[3].getRank();
+
+		a3 = cardArray[1].getRank() == cardArray[2].getRank()
+				&& cardArray[3].getRank() == cardArray[4].getRank()
+				&& cardArray[0].getRank() != cardArray[1].getRank()
+				&& cardArray[0].getRank() != cardArray[3].getRank();
+
+		return (a1 || a2 || a3);
+
+	}
+
+	private static boolean isThreeOfAKind(List currentHand) {
+		sortByNumber(currentHand);
+		Card[] cardArray = new Card[currentHand.size()];
+
+		for (int i = 0; i < cardArray.length; i++) {
+			cardArray[i] = (Card) currentHand.get(i);
+		}
+
+		boolean a1, a2;
+
+		if (cardArray.length != 5)
+			return (false);
+
+		a1 = cardArray[0].getRank() == cardArray[1].getRank()
+				&& cardArray[1].getRank() == cardArray[2].getRank();
+
+		a2 = cardArray[2].getRank() == cardArray[3].getRank()
+				&& cardArray[3].getRank() == cardArray[4].getRank();
+
+		return (a1 || a2);
+	}
+
+	private static boolean isStraight(List currentHand) {
+		sortByNumber(currentHand);
+		Card[] cardArray = new Card[currentHand.size()];
+
+		for (int i = 0; i < cardArray.length; i++) {
+			cardArray[i] = (Card) currentHand.get(i);
+		}
+
+		int testRank = cardArray[0].getRank() + 1;
+
+		for (int i = 1; i < 5; i++) {
+			if (cardArray[i].getRank() != testRank)
+				return (false);
+			testRank++;
+		}
+
+		return (true);
+	}
+
+	private static boolean isFlush(List currentHand) {
+		Card[] cardArray = new Card[currentHand.size()];
+
+		for (int i = 0; i < cardArray.length; i++) {
+			cardArray[i] = (Card) currentHand.get(i);
+		}
+
+		int count = 0;
+		for (int i = 0; i < cardArray.length; i++) {
+			for (int j = i + 1; j < cardArray.length; j++) {
+				if (cardArray[i].getSuit() == (cardArray[j].getSuit())) {
+					count++;
+				}
+			}
+		}
+		if (count == 10)
+			return true;
+		else
+			return false;
+	}
+
+	private static boolean isFullHouse(List currentHand) {
+		if (isOnePair(currentHand) && isThreeOfAKind(currentHand))
+			return true;
+		else
+			return false;
+
+	}
+
+	private static boolean isFourOfAKind(List currentHand) {
+		sortByNumber(currentHand);
+		Card[] cardArray = new Card[currentHand.size()];
+
+		for (int i = 0; i < cardArray.length; i++) {
+			cardArray[i] = (Card) currentHand.get(i);
+		}
+
+		boolean a1, a2;
+
+		if (cardArray.length != 5)
+			return (false);
+
+		a1 = cardArray[0].getRank() == cardArray[1].getRank()
+				&& cardArray[1].getRank() == cardArray[2].getRank()
+				&& cardArray[2].getRank() == cardArray[3].getRank();
+
+		a2 = cardArray[1].getRank() == cardArray[2].getRank()
+				&& cardArray[2].getRank() == cardArray[3].getRank()
+				&& cardArray[3].getRank() == cardArray[4].getRank();
+
+		return (a1 || a2);
+	}
+
+	private static boolean isStraightFlush(List currentHand) {
+
+		if (currentHand.size() != 5)
+			return (false);
+		if (isStraight(currentHand) && isFlush(currentHand))
+			return true;
+		else
+			return false;
+	}
+
+	private static boolean isRoyalFlush(List currentHand) {
+		if (currentHand.size() != 5)
+			return (false);
+		Card[] cardArray = new Card[currentHand.size()];
+
+		for (int i = 0; i < cardArray.length; i++) {
+			cardArray[i] = (Card) currentHand.get(i);
+		}
+
+		if (cardArray[0].getRank() == 1 && cardArray[1].getRank() == 10
+				&& cardArray[2].getRank() == 11 && cardArray[3].getRank() == 12
+				&& cardArray[4].getRank() == 13)
+			return true;
+		else
+			return false;
+
+	}
+
+	private int checkHands() {
+		int result = 9;
+		if (isRoyalPair(currentHand))
+			result = 0;
+		if (isTwoPair(currentHand))
+			result = 1;
+		if (isThreeOfAKind(currentHand))
+			result = 2;
+		if (isStraight(currentHand))
+			result = 3;
+		if (isFlush(currentHand))
+			result = 4;
+		if (isFullHouse(currentHand))
+			result = 5;
+		if (isFourOfAKind(currentHand))
+			result = 6;
+		if (isStraightFlush(currentHand))
+			result = 7;
+		if (isRoyalFlush(currentHand))
+			result = 8;
+		System.out.println(goodHandTypes[result]);
+		return result;
+	}
+
+	private void payout(int payout) {
+
+		if (payout == 9) {
+			balance = balance - bet;
+		} else if (payout != 9) {
+			balance = balance + (bet * multipliers[payout]);
+		}
+	}
+
+	private int getBalance() {
+		return this.balance;
+	}
+
+	private int getBet() {
+		return bet;
+	}
+
+	private void placeBet() {
+		Scanner input = new Scanner(System.in);
+		boolean loop = true;
+		while (loop) {
+			System.out.print("Enter bet: ");
+			bet = input.nextInt();
+			if (verifyBet(bet))
+				loop = false;
+			else
+				System.out.println("Insufficient funds.");
+		}
+	}
+
+	public static Card getCardFromDeck(int i) {
+		Card card = currentHand.get(i);
+		return card;
+	}
+
+	private boolean verifyBet(int newBet) {
+		boolean verify = false;
+		if (newBet <= balance)
+			verify = true;
+		return verify;
+	}
+
+	List<Card> tempHand = new ArrayList<Card>();
+
+	private static List<Card> discardPile(List currentHand) {
+		List<Card> tempHand = new ArrayList<Card>();
+		discard = new ArrayList<Integer>();
+		Scanner input = new Scanner(System.in);
+		String string1 = null;
+
+		int count = 1;
+
+		while (count > 0) {
+			count = 0;
+			System.out
+					.println("Enter positions of cards to keep (e.g. 1 4 5): ");
+
+			string1 = input.nextLine();
+
+			if (!string1.isEmpty()) {
+
+				String string2[] = string1.split(" ");
+
+				if (string2.length > 5) {
+					System.out
+							.println("Invalid number of cards selected. Only up to 5 cards may be selected.");
+					count++;
+				}
+
+				for (int i = 0; i < string2.length; i++) {
+					int k = Integer.parseInt(string2[i]);
+					discard.add(i, k);
+				}
+
+				for (int i = 0; i < discard.size(); i++) {
+
+					if (discard.get(i) < 1 || discard.get(i) >= 6) {
+						System.out
+								.println("Error. Selected position out of range. Choose 1 - 5 only.");
+						count++;
+						// break;
+					}
+				}
+
+				if (count == 0) {
+					for (int i = 0; i < discard.size(); i++) {
+						int x = discard.get(i);
+						tempHand.add(getCardFromDeck(x - 1));
+					}
+
+					System.out.println("Held Cards: " + tempHand);
+
+					try {
+						tempHand.addAll(oneDeck.deal(5 - discard.size()));
+					} catch (MyPlayingCardException e) {
+						e.printStackTrace();
+					}
+				}
+				discard.clear();
+			}
+		}
+
+		if (string1.isEmpty()) {
+			tempHand.clear();
+			System.out.println("No cards held.");
+			try {
+				tempHand.addAll(oneDeck.deal(5));
+			} catch (MyPlayingCardException e) {
+				e.printStackTrace();
+			}
+		}
+		return tempHand;
+	}
+
+	public static boolean playAgain() {
+
+		boolean loop = true;
+		boolean repeat = true;
+		Scanner input = new Scanner(System.in);
+
+		while (loop) {
+			System.out.println("Play again? (y or n)");
+			String playAgain = input.next();
+
+			if (playAgain.equalsIgnoreCase("y")) {
+				repeat = true;
+				loop = false;
+			}
+
+			else if (playAgain.equalsIgnoreCase("n")) {
+				repeat = false;
+				loop = false;
+			} else
+				System.out.println("Please choose (y or n)");
+		}
+		return repeat;
+
+	}
+
+	// *************************************************/
+
+	public void play() {
+		// The main algorithm for single player poker game
+
+		showPayoutTable();
+		oneDeck = new Decks(1);
+		currentHand = new ArrayList<Card>();
+		while (playing) {
+
+			System.out.println("Balance: $" + getBalance());
+			placeBet();
+			oneDeck.shuffle();
+
+			try {
+				currentHand = new ArrayList<Card>(oneDeck.deal(5));
+			} catch (MyPlayingCardException e) {
+				e.printStackTrace();
+			}
+
+			System.out.println("Current hand: " + currentHand);
+
+			currentHand = discardPile(currentHand);
+
+			System.out.println("New hand: " + currentHand);
+
+			payout(checkHands());
+
+			currentHand.clear();
+			System.out.print("\nYour current balance: $" + balance + ", ");
+
+			if ((balance > 0) && (playAgain())) {
+				askShowPayoutTable();
+				// System.out.println("\nYour balance: $"+balance);
+			} else {
+				System.out.println("\nYour balance is $" + getBalance()
+						+ "\nThanks for Playing!");
+				playing = false;
+			}
+		}
+	}
+
+	/**
+	 * Do not modify this. It is used to test checkHands() method checkHands()
+	 * should print your current hand type
+	 */
+	public void testCheckHands() {
+		try {
+			currentHand = new ArrayList<Card>();
+
+			// set Royal Flush
+			currentHand.add(new Card(1, 3));
+			currentHand.add(new Card(10, 3));
+			currentHand.add(new Card(12, 3));
+			currentHand.add(new Card(11, 3));
+			currentHand.add(new Card(13, 3));
+			System.out.println(currentHand);
+			checkHands();
+			System.out.println("-----------------------------------");
+
+			// set Straight Flush
+			currentHand.set(0, new Card(9, 3));
+			System.out.println(currentHand);
+			checkHands();
+			System.out.println("-----------------------------------");
+
+			// set Straight
+			currentHand.set(4, new Card(8, 1));
+			System.out.println(currentHand);
+			checkHands();
+			System.out.println("-----------------------------------");
+
+			// set Flush
+			currentHand.set(0, new Card(5, 3));
+			System.out.println(currentHand);
+			checkHands();
+			System.out.println("-----------------------------------");
+
+			// set Four of a Kind
+			currentHand.clear();
+			currentHand.add(new Card(8, 3));
+			currentHand.add(new Card(8, 0));
+			currentHand.add(new Card(12, 3));
+			currentHand.add(new Card(8, 1));
+			currentHand.add(new Card(8, 2));
+			System.out.println(currentHand);
+			checkHands();
+			System.out.println("-----------------------------------");
+
+			// set Three of a Kind
+			currentHand.set(0, new Card(11, 3));
+			System.out.println(currentHand);
+			checkHands();
+			System.out.println("-----------------------------------");
+
+			// set Full House
+			currentHand.set(4, new Card(11, 1));
+			System.out.println(currentHand);
+			checkHands();
+			System.out.println("-----------------------------------");
+
+			// set Two Pairs
+			currentHand.set(1, new Card(9, 1));
+			System.out.println(currentHand);
+			checkHands();
+			System.out.println("-----------------------------------");
+
+			// set Royal Pair
+			currentHand.set(0, new Card(3, 1));
+			System.out.println(currentHand);
+			checkHands();
+			System.out.println("-----------------------------------");
+
+			// non Royal Pair
+			currentHand.set(4, new Card(3, 3));
+			System.out.println(currentHand);
+			checkHands();
+			System.out.println("-----------------------------------");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	/* Quick testCheckHands() */
+	public static void main(String args[]) {
+		MyPokerGame mypokergame = new MyPokerGame();
+		mypokergame.testCheckHands();
+	}
+}
