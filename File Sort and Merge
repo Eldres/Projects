@@ -1,0 +1,68 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
+#include <iomanip>
+#include <conio.h>
+
+using namespace std;
+
+const int MAX_SIZE = 1000;
+
+void fillFile(fstream &file)
+{
+	int randomInt = ((rand() % MAX_SIZE) + 1);
+	cout << "Filling file with random numbers (1-999)......." << endl;
+	while (!file.fail())
+	{
+		for (int i = 0; i < 100; i++)
+		{
+			file << i << endl;
+		}
+	}
+}
+
+
+int main()
+{
+	string line, line1, line2; // used to read in each line from the files
+	fstream file1("file1.txt"); // creates a file to read/write from/to a file
+	fstream file2("file2.txt"); 
+	fstream mergeFile("mergedFile.txt");
+
+	file1.open("file1.txt");
+	fillFile(file1);
+	cout << "File 1 now filled with 100 random numbers.\n";
+
+	file2.open("file2.txt");
+	fillFile(file2);
+	cout << "File 2 now filled with 100 random numbers.\n";
+
+	while ((!file1.fail()) && (!file2.fail()))
+	{
+		if (line1 <= line2)
+		{
+			mergeFile << line1 << endl;
+			getline(file1, line1);
+		}
+		else
+		{
+			mergeFile << line2 << endl;
+			getline(file2, line2);
+		}
+	}
+
+	mergeFile.open("mergedFile.txt");
+	cout << "Printing out contents of the new merged file: \n";
+	while (!mergeFile.fail())
+	{
+		getline(mergeFile, line);
+		cout << line << endl;
+	}
+
+	file1.close();
+	file2.close();
+	mergeFile.close();
+
+	return 0;
+}
