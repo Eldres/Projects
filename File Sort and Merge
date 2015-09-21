@@ -27,7 +27,7 @@ int main()
 {
 	string line, line1, line2; // used to read in each line from the files
 	fstream file1("file1.txt"); // creates a file to read/write from/to a file
-	fstream file2("file2.txt"); 
+	fstream file2("file2.txt");
 	fstream mergeFile("mergedFile.txt");
 
 	file1.open("file1.txt");
@@ -37,6 +37,8 @@ int main()
 	file2.open("file2.txt");
 	fillFile(file2);
 	cout << "File 2 now filled with 100 random numbers.\n";
+
+	mergeFile.open("mergedFile.txt");
 
 	while ((!file1.fail()) && (!file2.fail()))
 	{
@@ -52,7 +54,6 @@ int main()
 		}
 	}
 
-	mergeFile.open("mergedFile.txt");
 	cout << "Printing out contents of the new merged file: \n";
 	while (!mergeFile.fail())
 	{
