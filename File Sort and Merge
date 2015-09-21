@@ -3,7 +3,6 @@
 #include <vector>
 #include <string>
 #include <iomanip>
-#include <conio.h>
 
 using namespace std;
 
