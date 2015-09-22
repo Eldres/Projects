@@ -10,26 +10,28 @@ void showMatrix(vector <vector<int> > matrix)
 	{
 		for (int j = 0; j < matrix[i].size(); j++) // j is the col in the matrix
 		{
-			cout << matrix[i][j] << " ";
+			cout << setw(3) << matrix[i][j];
 		}
 		cout << endl;
 	}
 	cout << endl;
 }
 
-vector <vector<int> > vectorMultiply(vector <vector<int> > &matrix1, vector<vector<int> > &matrix2)
+vector <vector<int> > vectorMultiply(vector <vector<int> > &matrix1, vector<vector<int> > &matrix2)//math is wrong
 {
 	vector<vector<int> > result;
 	int sum = 0;
 	for (int i = 0; i < matrix1.size(); i++)
 	{
+		vector<int> temp;
 		for (int j = 0; j < matrix1[i].size(); j++)
 		{
-			for (int k = 0; k < matrix1[j].size(); k++)
+			for (int k = 0; k < matrix1[0].size(); k++) //for-loop wrong
 			{
-				sum = sum + matrix1[i][k] * matrix2[k][j];
+				sum = sum + matrix1[i][k] * matrix2[k][j]; 
+				temp.push_back(sum);
 			}
-			result[i][j] = sum;
+			result.push_back(temp);
 			sum = 0;
 		}
 	}
@@ -39,57 +41,57 @@ vector <vector<int> > vectorMultiply(vector <vector<int> > &matrix1, vector<vect
 
 int main()
 {
-	vector <vector<int> > firstMatrix;
-	vector <vector<int> > secondMatrix;
-	int inputSizeFMRow; //input for size of first matrix row
-	int inputSizeFMCol; //input for size of first matrix col
-	int inputSizeSMRow; //input for size of second matrix row
-	int inputSizeSMCol; //input for size of second matrix col
-	int userInput; //elements provided by the user
+	int inputSizeFMRow = 0; //input for size of first matrix row
+	int inputSizeFMCol = 0; //input for size of first matrix col
+	int inputSizeSMRow = 0; //input for size of second matrix row
+	int inputSizeSMCol = 0; //input for size of second matrix col
+	int userInput = 0; //elements provided by the user
+	vector <vector<int> > firstMatrix(inputSizeFMRow);
+	vector <vector<int> > secondMatrix(inputSizeSMRow);
 
 	cout << "Please enter the row size of the first matrix: ";
 	cin >> inputSizeFMRow;
 	cout << "Please enter the column size of the first matrix: ";
 	cin >> inputSizeFMCol;
+	cout << endl;
 
-
-
-	cout << "Now please enter the elements of the first matrix.\n";
-	for (int row = 0; row < inputSizeFMRow; row++)
+	for (int i = 0; i < inputSizeFMRow; i++)
 	{
-		for (int col = 0; col < inputSizeFMCol; col++)
-         {
+		vector<int> temp;
+		for (int j = 0; j < inputSizeFMCol; j++)
+		{
+			cout << "Please enter values into the first matrix: ";
 			cin >> userInput;
-			firstMatrix[row].push_back(userInput);
+			temp.push_back(userInput);
 		}
+		firstMatrix.push_back(temp);
 	}
 
-	cout << "Please enter the row size of the second matrix: ";
+	cout << "\nPlease enter the row size of the second matrix: ";
 	cin >> inputSizeSMRow;
 	cout << "Please enter the column size of the second matrix: ";
 	cin >> inputSizeSMCol;
+	cout << endl;
 
-	if (inputSizeFMRow != inputSizeSMCol)
+	if (inputSizeFMCol != inputSizeSMRow)
 	{
-		cout << "Matrices with entered sizes cannot be multiplied together.\n";
+		cout << "These matrices cannot be multiplied together.\n";
 	}
 	else
 	{
-		cout << "Now please enter the elements of the second matrix.\n";
-		for (int row = 0; row < inputSizeSMRow; row++)
+		for (int i = 0; i < inputSizeSMRow; i++)
 		{
-			cout << "Row: ";
-			cin >> userInput;
-			secondMatrix.push_back(vector<int>(userInput));
-			for (int col = 0; col < inputSizeSMCol; col++)
+			vector<int> temp;
+			for (int j = 0; j < inputSizeSMCol; j++)
 			{
-				cout << "Column: ";
+				cout << "Now please enter the values for the second matrix: ";
 				cin >> userInput;
-				secondMatrix[row].push_back(row*col);
+				temp.push_back(userInput);
 			}
+			secondMatrix.push_back(temp);
 		}
-		vector <vector<int> > multiMatrix = vectorMultiply(firstMatrix, secondMatrix);
-		showMatrix(multiMatrix);
+		vector <vector<int> > multiMatrix = vectorMultiply(firstMatrix, secondMatrix); //math is wrong in function
+		showMatrix(multiMatrix); //this may be wrong...who knows?
 	}
 
 	return 0;
