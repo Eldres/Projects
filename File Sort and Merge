@@ -103,6 +103,21 @@ int main()
 
 	merge(file1, file2, mergeFile);
 
+	/* This is wrong somehow.....
+	if (mergeFile.is_open())
+	{
+		while (mergeFile.good())
+		{
+			getline(mergeFile, line);
+			cout << line << endl;
+		}
+		mergeFile.close();
+	}
+	else
+	{
+		cout << "Could not open file.";
+	}*/
+
 	file1.close();
 	file2.close();
 	mergeFile.close();
