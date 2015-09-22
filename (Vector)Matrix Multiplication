@@ -10,32 +10,31 @@ void showMatrix(vector <vector<int> > matrix)
 	{
 		for (int j = 0; j < matrix[i].size(); j++) // j is the col in the matrix
 		{
-			cout << setw(3) << matrix[i][j];
+			cout << setw(5) << matrix[i][j];
 		}
 		cout << endl;
 	}
 	cout << endl;
 }
 
-vector <vector<int> > vectorMultiply(vector <vector<int> > &matrix1, vector<vector<int> > &matrix2)//math is wrong
+vector <vector<int> > vectorMultiply(const vector <vector<int> > &matrix1, const vector<vector<int> > &matrix2, vector<vector<int> > &result)
 {
-	vector<vector<int> > result;
 	int sum = 0;
 	for (int i = 0; i < matrix1.size(); i++)
 	{
 		vector<int> temp;
-		for (int j = 0; j < matrix1[i].size(); j++)
+		for (int j = 0; j < matrix2[i].size(); j++)//matrix2[i].size() works
 		{
-			for (int k = 0; k < matrix1[0].size(); k++) //for-loop wrong
+			for (int k = 0; k < matrix1[0].size(); k++)
 			{
-				sum = sum + matrix1[i][k] * matrix2[k][j]; 
+				//cout << i << " " << j << " " << k << endl;
+				sum += (matrix1[i][k]) * (matrix2[k][j]);
 				temp.push_back(sum);
 			}
 			result.push_back(temp);
 			sum = 0;
 		}
 	}
-
 	return result;
 }
 
@@ -46,8 +45,9 @@ int main()
 	int inputSizeSMRow = 0; //input for size of second matrix row
 	int inputSizeSMCol = 0; //input for size of second matrix col
 	int userInput = 0; //elements provided by the user
-	vector <vector<int> > firstMatrix(inputSizeFMRow);
-	vector <vector<int> > secondMatrix(inputSizeSMRow);
+	vector <vector<int> > firstMatrix;
+	vector <vector<int> > secondMatrix;
+	vector <vector<int> > multiMatrix;
 
 	cout << "Please enter the row size of the first matrix: ";
 	cin >> inputSizeFMRow;
@@ -90,9 +90,8 @@ int main()
 			}
 			secondMatrix.push_back(temp);
 		}
-		vector <vector<int> > multiMatrix = vectorMultiply(firstMatrix, secondMatrix); //math is wrong in function
-		showMatrix(multiMatrix); //this may be wrong...who knows?
+		multiMatrix = vectorMultiply(firstMatrix, secondMatrix, multiMatrix);
+		showMatrix(multiMatrix);
 	}
-
 	return 0;
 }
