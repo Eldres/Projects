@@ -12,53 +12,96 @@ void fillFile(fstream &file)
 {
 	int randomInt = ((rand() % MAX_SIZE) + 1);
 	cout << "Filling file with random numbers (1-999)......." << endl;
-	while (!file.fail())
+	while (file.is_open())
 	{
-		for (int i = 0; i < 100; i++)
+		for (int i = 0; i < 10; i++)
 		{
-			file << i << endl;
+			file << (randomInt) << endl;
+		}
+		file.close();
+	}
+}
+
+void merge(fstream &file1, fstream &file2, fstream &merge)
+{
+	string line;
+	int counter = 1;
+	int num1 = 0;
+	int num2 = 0;
+	bool first = true;
+
+	if (file1.is_open())
+	{
+		getline(file1, line);
+		num1 = atoi(line.c_str()); //convert alpha to int 
+	}
+	else if (file2.is_open())
+	{
+		getline(file2, line);
+		num2 = atoi(line.c_str()); //convert alpha to int
+	}
+
+	while ((file1.is_open()) || (file2.is_open()))
+	{
+		if (file1.is_open() && file2.is_open())
+		{
+			if (num1 >= num2)
+			{
+				merge << counter++ << ": " << num1 << endl;
+				getline(file1, line);
+				num1 = atoi(line.c_str());
+			}
+			else
+			{
+				merge << counter++ << ": " << num2 << endl;
+				getline(file2, line);
+				num2 = atoi(line.c_str());
+			}
+		}
+		else 
+		{
+			if (first)
+			{
+				if (!file1.is_open())
+				{
+					merge << counter++ << ": " << num2 << endl;
+				}
+				else if (!file2.is_open())
+				{
+					merge << counter++ << ": " << num1 << endl;
+				}
+			}
+			else
+			{
+				merge << counter++ << ": " << line << endl;
+			}
+			if (file1.is_open())
+			{
+				getline(file1, line);
+			}
+			else if (file2.is_open())
+			{
+				getline(file2, line);
+			}
+			first = false; // break condition for while-loop
 		}
 	}
 }
 
-
 int main()
 {
-	string line, line1, line2; // used to read in each line from the files
-	fstream file1("file1.txt"); // creates a file to read/write from/to a file
-	fstream file2("file2.txt");
+	string line; // used to read in each line from the file
+	fstream file1("file1.txt", ios::out | ios::app); // creates a file to read/write from/to a file
+	fstream file2("file2.txt", ios::out | ios::app);
 	fstream mergeFile("mergedFile.txt");
 
-	file1.open("file1.txt");
 	fillFile(file1);
 	cout << "File 1 now filled with 100 random numbers.\n";
 
-	file2.open("file2.txt");
 	fillFile(file2);
 	cout << "File 2 now filled with 100 random numbers.\n";
 
-	mergeFile.open("mergedFile.txt");
-
-	while ((!file1.fail()) && (!file2.fail()))
-	{
-		if (line1 <= line2)
-		{
-			mergeFile << line1 << endl;
-			getline(file1, line1);
-		}
-		else
-		{
-			mergeFile << line2 << endl;
-			getline(file2, line2);
-		}
-	}
-
-	cout << "Printing out contents of the new merged file: \n";
-	while (!mergeFile.fail())
-	{
-		getline(mergeFile, line);
-		cout << line << endl;
-	}
+	merge(file1, file2, mergeFile);
 
 	file1.close();
 	file2.close();
