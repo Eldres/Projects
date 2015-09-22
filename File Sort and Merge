@@ -3,20 +3,21 @@
 #include <vector>
 #include <string>
 #include <iomanip>
+#include <random>
 
 using namespace std;
 
-const int MAX_SIZE = 1000;
-
 void fillFile(fstream &file)
 {
-	int randomInt = ((rand() % MAX_SIZE) + 1);
-	cout << "Filling file with random numbers (1-999)......." << endl;
+	srand(time(NULL));
+	int randomInt = rand() % 100 + 1;
+	cout << randomInt;
+	cout << "Filling file with random numbers (1-99)......." << endl;
 	while (file.is_open())
 	{
 		for (int i = 0; i < 10; i++)
 		{
-			file << (randomInt) << endl;
+			file << randomInt << endl;
 		}
 		file.close();
 	}
@@ -58,7 +59,7 @@ void merge(fstream &file1, fstream &file2, fstream &merge)
 				num2 = atoi(line.c_str());
 			}
 		}
-		else 
+		else
 		{
 			if (first)
 			{
@@ -103,19 +104,19 @@ int main()
 
 	merge(file1, file2, mergeFile);
 
-	/* This is wrong somehow.....
+	/*This is wrong somehow.....
 	if (mergeFile.is_open())
 	{
-		while (mergeFile.good())
-		{
-			getline(mergeFile, line);
-			cout << line << endl;
-		}
-		mergeFile.close();
+	while (mergeFile.good())
+	{
+	getline(mergeFile, line);
+	cout << line << endl;
+	}
+	mergeFile.close();
 	}
 	else
 	{
-		cout << "Could not open file.";
+	cout << "Could not open file.";
 	}*/
 
 	file1.close();
