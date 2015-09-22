@@ -1,0 +1,145 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct paragraph
+{
+	int freqCounter;
+	string word;
+};
+
+/*
+* This function identifies the least frequent letter in a paragraph inputted by the user
+*/
+void getLeastFreqLetter(string wordArray)
+{
+	int letters[27] = { 0 };
+	int arraySize = wordArray.size();
+	for (int i = 0; i < arraySize; ++i)
+	{
+		char upperCase = wordArray[i];
+		if (wordArray[i] >= 65 && wordArray[i] <= 90) //using the ascii numbers for uppercase letters
+		{
+			upperCase += ('a' - 'A');
+		}
+		else if (wordArray[i] >= 97 && wordArray[i] <= 122) //using ascii for lowercase
+		{
+			letters[wordArray[i] - 97]++;
+		}
+	}
+	int minIndex = 0;
+	for (int i = 0; i < 27; ++i) //iterate thru the array to find the minimum index, and set that index to i
+	{
+		if (letters[minIndex] > letters[i])
+		{
+			minIndex = i;
+		}
+	}
+	cout << "The least frequent character inputted is " << (char)(minIndex + 97) << " with a frequency of " << letters[minIndex] << endl;
+}
+/*
+* This function checks if a character that was input
+* is present in the line input by the user
+*/
+int doesExist(paragraph *wordArray, string temp, int count)
+{
+	for (int i = 0; i < count; ++i)
+	{
+		if (wordArray[i].word == temp)
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
+/*
+* This function simply counts the words(max of 100) input by the user
+* and displays their frequency,
+* it also checks for special characters such as: !,?, commas, semicolons, tabs and whitespace
+* and replaces them with "" or empty space
+*/
+paragraph *wordFreqCounter(string line, int &count)
+{
+	paragraph *wordArray = new paragraph[100];
+	count = 0;
+	string temp = "";
+	int boolFlag = 1;
+	int lineSize = line.size();
+	for (int i = 0; i < lineSize; ++i)
+	{
+		while (line[i] == ' ' || line[i] == '\t' || line[i] == ','
+			|| line[i] == '.' || line[i] == ';' || line[i] == '!'
+			|| line[i] == '?' || line[i] == ':') {
+			boolFlag = 0;
+			++i;
+		}
+		if (boolFlag == 1) {
+			temp += line[i];
+		}
+		else {
+			int ind = doesExist(wordArray, temp, count);
+			if (ind != -1) {
+				wordArray[ind].freqCounter += 1;
+			}
+			else {
+				wordArray[count].word = temp;
+				wordArray[count].freqCounter = 1;
+				count++;
+			}
+			temp = "";
+			temp += line[i];
+			boolFlag = 1;
+		}
+	}
+	if (temp != "")
+	{
+		int index = doesExist(wordArray, temp, count);
+		if (index != -1)
+		{
+			wordArray[index].freqCounter += 1;
+		}
+		else
+		{
+			wordArray[count].word = temp;
+			wordArray[count].freqCounter = 1;
+			count++;
+		}
+	}
+	for (int i = 0; i < count; ++i)
+	{
+		cout << wordArray[i].word << " shows up: " << wordArray[i].freqCounter << " times." << endl;
+	}
+	return wordArray;
+}
+
+/*
+* This function counts the most frequent word in the paragraph from the user
+*/
+paragraph getMostFreqWord(paragraph *wordArray, int count)
+{
+	int maxIndex = 0;
+	for (int i = 1; i < count; ++i)
+	{
+		if (wordArray[maxIndex].freqCounter < wordArray[i].freqCounter)
+		{
+			maxIndex = i;
+		}
+	}
+	return wordArray[maxIndex];
+}
+
+int main()
+{
+	string line;
+	cout << "Please type your paragraph here: ";
+	getline(cin, line);
+	getLeastFreqLetter(line);
+	int count = 0;
+	paragraph *wordArray = wordFreqCounter(line, count);
+	paragraph mostFreq = getMostFreqWord(wordArray, count);
+	cout << "The most frequent word is: " << mostFreq.word;
+	cout << "\n" << " it's frequency is: " << mostFreq.freqCounter << endl;
+
+	return 0;
+}
