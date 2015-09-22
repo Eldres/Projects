@@ -23,17 +23,17 @@ vector <vector<int> > vectorMultiply(const vector <vector<int> > &matrix1, const
 	for (int i = 0; i < matrix1.size(); i++)
 	{
 		vector<int> temp;
-		for (int j = 0; j < matrix2[i].size(); j++)//matrix2[i].size() works
+		for (int j = 0; j < matrix2[i].size(); j++)
 		{
 			for (int k = 0; k < matrix1[0].size(); k++)
 			{
 				//cout << i << " " << j << " " << k << endl;
 				sum += (matrix1[i][k]) * (matrix2[k][j]);
-				temp.push_back(sum);
 			}
-			result.push_back(temp);
+			temp.push_back(sum);
 			sum = 0;
 		}
+		result.push_back(temp);
 	}
 	return result;
 }
@@ -75,7 +75,8 @@ int main()
 
 	if (inputSizeFMCol != inputSizeSMRow)
 	{
-		cout << "These matrices cannot be multiplied together.\n";
+		cout << "These matrices cannot be multiplied together. " <<
+			"The row of the first matrix must be the same size as the column of the second matrix.\n";
 	}
 	else
 	{
@@ -90,7 +91,8 @@ int main()
 			}
 			secondMatrix.push_back(temp);
 		}
-		multiMatrix = vectorMultiply(firstMatrix, secondMatrix, multiMatrix);
+		vectorMultiply(firstMatrix, secondMatrix, multiMatrix);
+		cout << "\nThis is the new matrix: " << endl;
 		showMatrix(multiMatrix);
 	}
 	return 0;
