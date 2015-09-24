@@ -1,1 +1,51 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <iomanip>
 
+using namespace std;
+
+int main() 
+{
+	vector<double> numVector;
+	const double SKIP_NUM = 6000;//number in file to skip to
+	int numBytes = 5;//bytes to be read in
+	double product = (numBytes * SKIP_NUM);//to be used with seekg()
+	fstream file("file1.txt");
+
+	if (!file)
+	{
+		cout << "Cannot open file. Try again later...." << endl;
+	}
+
+	file.seekg(product);//skipping to the pointer to start adding new nums
+
+	while (file.is_open())//read in the numbers of the file
+	{
+		double nextNum;
+		file >> nextNum;
+		if (file.fail())
+		{
+			break;
+		}
+		numVector.push_back(nextNum);
+	}
+
+	file.clear();//clear the file handles
+
+	file.seekp(product);
+
+	for (int i = 7777; i <= 7781; i++) //inserting 5 new numbers
+	{
+		file << i << endl;
+	}
+
+	for (int i = 6006; i <= 9999; i++) //continuing to add the rest of the numbers from the file
+	{
+		file << numVector[i] << endl;
+	}
+
+	file.close();
+
+	return 0;
+}
