@@ -77,17 +77,17 @@ int main()
 
 	for (int i = 7777; i <= 7781; i++)
 	{
-		file << setw(4) << i << endl;
+		file << i << endl;
 	}
 	//cout << "CHECK3";
 	for (int i = 0; i < count; i++)
 	{
-		file << setw(4) << myArray[i];
+		file << myArray[i] << endl;
 	}
 	//cout << "CHECK 4";
 
 	cout << "Numbers being placed.............";
-	cout << " Complete.\n";
+	cout << " Complete. ";
 	
 	file.close();
 
