@@ -7,7 +7,8 @@ using namespace std;
 
 int main() 
 {
-	vector<int> numVector;
+	//vector<int> numVector;
+	int myArray[10000];
 	const int SKIP_NUM = 6000;//number in file to skip to
 	int numBytes = 5;//bytes to be read in(4byte num + newline)
 	int product = (numBytes * SKIP_NUM);//to be used with seekg()
@@ -19,7 +20,7 @@ int main()
 		cout << "Cannot open file.\n";
 		exit(1); //exit program if file isnt open
 	}
-	cout << "check";
+	//cout << "check";
 	/*file.seekg(product);//skipping to the pointer to start adding new nums
 
 	while (file.is_open())//read in the numbers of the file
@@ -62,28 +63,28 @@ int main()
 		}
 	}
 	int numLoc = file.tellg();
-	cout << "CHECK";
-	file >> numVector[count];//subscript out of range
-	cout << "CHECK1";
+	//cout << "CHECK";
+	file >> myArray[count];
+	//cout << "CHECK1";
 	while(!file.fail())
 	{
 		count++;
-		file >> numVector[count];
+		file >> myArray[count];
 	}
-	cout << "CHECK2";
+	//cout << "CHECK2";
 	file.clear();
 	file.seekp(numLoc + 2);
 
 	for (int i = 7777; i <= 7781; i++)
 	{
-		file << left << setw(4) << i;
+		file <<  i;
 	}
-	cout << "CHECK3";
+	//cout << "CHECK3";
 	for (int i = 0; i < count; i++)
 	{
-		file << left << setw(4) << numVector[i];
+		file << myArray[i];
 	}
-	cout << "CHECK 4";
+	//cout << "CHECK 4";
 	
 	file.close();
 
