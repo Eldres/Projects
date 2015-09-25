@@ -73,7 +73,7 @@ int main()
 	}
 	//cout << "CHECK2";
 	file.clear();
-	file.seekp(numLoc + 2);
+	file.seekp(product);
 
 	for (int i = 7777; i <= 7781; i++)
 	{
