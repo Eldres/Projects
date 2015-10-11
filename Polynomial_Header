@@ -1,0 +1,26 @@
+#pragma once
+#ifndef POLY_H
+#define POLY_H
+
+#include <iostream>
+#include <string>
+
+class polynomial{
+	private:
+		int coefficient[50];
+		std::string variable[50];
+		int power[20];
+
+	public:
+		polynomial(); //constructor
+		void readpoly(int &term); //reads the user inputted polynomial
+		int degree(); //prints the degree of the polynomial
+		int getCoefficient(int degree); //gets the coefficient of specified degree
+		void changeCoefficient(int newCoeff, int degree); //changes the coefficient of the specified degree
+		void multiply(int terms, int value); //multiplies by a scalar value
+		void addPoly(int &terms); //add two polynomials
+		void printPoly(int printTerms); //prints the polynomial
+		//polynomial operator/ (int value); //divides polynomial by scalar variable
+		polynomial operator- (int terms); //negates the polynomial
+};
+#endif
