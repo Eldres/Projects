@@ -1,0 +1,338 @@
+#include <iostream>
+#include <string>
+#include "Poly.H"
+using namespace std;
+
+polynomial::polynomial() {
+	for (int i = 0; i < 50; i++) {
+		coefficient[i] = 0;
+		variable[i] = "!";
+		power[i] = 1;
+	}
+}
+
+void polynomial::readpoly(int &terms) {
+	for (int i = 0; i < terms; i++) { //resizes the poly to be the one specified by the user
+		coefficient[i] = 0;
+		variable[i] = "";
+		power[i] = 1;
+	}
+	cout << "Enter the coefficient, variable and the power of the polynomial you wish to make: " << endl;
+	int count = 1;
+	while (count < terms) {
+		switch (count + 1) {
+		case 1:
+			cout << "Enter your " << count << " polynomial. Let's start with the coefficient.\n";
+			cout << "Coefficient: ";
+			cin >> coefficient[count];
+			cout << "Variable: ";
+			cin >> variable[count];
+			cout << "Power: ";
+			cin >> power[count];
+			break;
+		case 2:
+			cout << "Enter your " << count << " next polynomial. Let's start with the coefficient.\n";
+			cout << "Coefficient: ";
+			cin >> coefficient[count];
+			cout << "Variable: ";
+			cin >> variable[count];
+			cout << "Power: ";
+			cin >> power[count];
+			break;
+		case 3:
+			cout << "Enter your " << count << " next polynomial. Let's start with the coefficient.\n";
+			cout << "Coefficient: ";
+			cin >> coefficient[count];
+			cout << "Variable: ";
+			cin >> variable[count];
+			cout << "Power: ";
+			cin >> power[count];
+			break;
+		default:
+			cout << "Invalid entry.";
+			exit(1);
+		}
+		count++;
+	}
+	int tempCoeff[terms];
+	string tempVar[terms];
+	int tempPwr[terms];
+	int counter = 0; //counter for where the polynomial is
+	
+	for (int i = 0; i < terms; i++) {
+		tempCoeff[i] = 0;
+		tempVar[i] = "";
+		tempPwr[i] = 1;
+	}
+
+	for (int i = 0; i < terms; i++) {
+		if (tempCoeff[i] == 0) {
+			tempCoeff[i] = 1;
+		}
+	}
+	
+	for (int i = 0; i < terms; i++) {
+		tempCoeff[i] = coefficient[i];
+		tempVar[i] = variable[i];
+		tempPwr[i] = power[i];
+	}
+
+	for (int i = 0; i < terms; i++) {
+		for (int j = i + 1; j < terms; j++) {
+			if (tempCoeff[i] != 1 || tempVar[i] != "" || tempPwr[i] != 1) {
+				if (tempPwr[i] == tempPwr[j] && tempVar[i] == tempVar[j]) {
+					coefficient[counter] = tempCoeff[i] + tempCoeff[j];
+					variable[counter] = tempVar[i];
+					power[counter] = tempPwr[i];
+					tempCoeff[j] = 0;
+					tempVar[j] = "";
+					tempPwr[j] = 1;
+					counter++;
+					tempCoeff[i] = 1;
+					tempVar[i] = "";
+					tempPwr[i] = 1;
+				}
+			}
+		}
+	}
+
+	for (int i = 0; i < terms; i++) {
+		if (tempCoeff[i] == 1) {
+			tempCoeff[i] = 0;
+		}
+	}
+
+	for (int i = 0; i < terms; i++) {
+		if (tempCoeff[i] != 0 || tempVar[i] != "" || tempPwr[i] != 1) {
+			coefficient[counter] = tempCoeff[i];
+			variable[counter] = tempVar[i];
+			power[counter] = tempPwr[i];
+			counter++;
+		}
+	}
+
+	terms = counter;
+}
+
+int polynomial::degree() {
+	int temp[50];
+	for (int i = 0; i < 50; i++) {
+		temp[i] = power[i];
+	}
+	for (int i = 0; i < 50 - 1; i++) {
+		int min = i;
+		for (int j = i + 1; j < 50; j++) {
+			if (temp[j] < temp[min]) {
+				min = j;
+			}
+		}
+		if (min != i) {
+			swap(temp[i], temp[min]);
+		}
+	}
+	return temp[49];
+}
+
+int polynomial::getCoefficient(int degree) {
+	for (int i = 0; i < 50; i++) {
+		if (power[i] == degree) {
+			return coefficient[i];
+		}
+	}
+	return 0;
+}
+
+void polynomial::changeCoefficient(int newCoeff, int degree) {
+	int check = 0;
+	for (int i = 0; i < 50; i++) {
+		if (power[i] == degree) {
+			coefficient[i] = newCoeff;
+			check = 1;
+		}
+	}
+	if (check == 0) {
+		cout << "There is no term with the specified degree. No changes to the polynomial were made.\n";
+	}
+}
+
+void polynomial::multiply(int terms, int value) {
+	if (coefficient[0] == 0 && variable[0] == "" && power[0] == 1) { //user error check statement
+		cout << "You must enter a polynomial first.\n";
+	}
+	else {
+		for (int i = 0; i < terms; i++) {
+			coefficient[i] = coefficient[i] * value;
+		}
+	}
+}
+
+void polynomial::addPoly(int &terms) {
+	if (coefficient[0] == 0 && variable[0] == "" && power[0] == 1) { //user error check statement
+		cout << "You must enter a polynomial first.\n";
+	}
+	else {
+		int tempTerms;
+		cout << "Enter the number of terms you wish to input into the polynomial: ";
+		cin >> tempTerms;
+		int tempCoeff[tempTerms];
+		string tempVar[tempTerms];
+		int tempPwr[tempTerms];
+		for (int i = 0; i < tempTerms; i++) {
+			tempCoeff[i] = 0;
+			tempVar[i] = "";
+			tempPwr[i] = 1;
+		}
+		cout << "Enter the coefficient, variable and power of your polynomial.\n";
+		int count = 0;
+		while (count < tempTerms) {
+			switch (count + 1) {
+			case 1:
+				cout << "Enter your " << count << " polynomial. Let's start with the coefficient.\n";
+				cout << "Coefficient: ";
+				cin >> coefficient[count];
+				cout << "Variable: ";
+				cin >> variable[count];
+				cout << "Power: ";
+				cin >> power[count];
+				break;
+			case 2:
+				cout << "Enter your " << count << " next polynomial. Let's start with the coefficient.\n";
+				cout << "Coefficient: ";
+				cin >> coefficient[count];
+				cout << "Variable: ";
+				cin >> variable[count];
+				cout << "Power: ";
+				cin >> power[count];
+				break;
+			case 3:
+				cout << "Enter your " << count << " next polynomial. Let's start with the coefficient.\n";
+				cout << "Coefficient: ";
+				cin >> coefficient[count];
+				cout << "Variable: ";
+				cin >> variable[count];
+				cout << "Power: ";
+				cin >> power[count];
+				break;
+			default:
+				cout << "Invalid entry.";
+				exit(1);
+			}
+			count++;
+		}
+		int counter = 0;
+		int temp[50];
+		int addTerms = terms + tempTerms;
+		int tempC[addTerms];
+		string tempV[addTerms];
+		int tempP[addTerms];
+
+		for (int i = 0; i < addTerms; i++) {
+			tempC[i] = 0;
+			tempV[i] = "";
+			tempP[i] = 1;
+		}
+
+		for (int i = 0; i < terms; i++) {
+			tempC[i] = coefficient[i];
+			tempV[i] = variable[i];
+			tempP[i] = power[i];
+		}
+
+		int offset = terms;
+		int zero = 0;
+
+		for (int i = 0; i < tempTerms; i++) {
+			tempC[offset] = tempCoeff[zero];
+			tempV[offset] = tempVar[zero];
+			tempP[offset] = tempPwr[zero];
+			offset++;
+			zero++;
+		}
+		for (int i = 0; i < addTerms; i++) {
+			if (tempC[i] == 0) {
+				tempC[i] = 1;
+			}
+		}
+
+		counter = 0;
+		for (int i = 0; i < addTerms; i++) {
+			for (int j = i + 1; j < addTerms; j++) {
+				if (tempC[i] != 1 || tempV[i] != "" || tempP[i] != 1) {
+					if (tempP[i] == tempP[j] && tempV[i] == tempV[j]) {
+						coefficient[counter] = tempC[i] + tempC[j];
+						variable[counter] = tempV[i];
+						power[counter] = tempP[i];
+						tempC[j] = 1;
+						tempV[j] = "";
+						tempP[j] = 1;
+						counter++;
+						tempC[i] = 1;
+						tempV[i] = "";
+						tempP[i] = 1;
+					}
+				}
+			}
+		}
+
+		for (int i = 0; i < addTerms; i++) {
+			if (tempC[i] == 1) {
+				tempC[i] = 0;
+			}
+		}
+
+		for (int i = 0; i < addTerms; i++) {
+			if (tempC[i] != 0 || tempV[i] != "" || tempP[i] != 1) {
+				coefficient[counter] = tempC[i];
+				variable[counter] = tempV[i];
+				power[counter] = tempP[i];
+				counter++;
+			}
+		}
+		terms = counter;
+	}
+}
+
+void polynomial::printPoly(int printTerms) {
+	int temp[50];
+
+	for (int i = 0; i < printTerms; i++) {
+		temp[i] = coefficient[i];
+	}
+	for (int i = 0; i < printTerms; i++) {
+		if (temp[i] != 0) {
+			cout << temp[i];
+		}
+		if (variable[i] != "") {
+			cout << variable[i];
+		}
+		if (power[i] != 1) {
+			cout << "^" << power[i];
+		}
+		if (i < (printTerms - 1)) {
+			if (temp[i + 1] >= 0) {
+				cout << " + ";
+			}
+			else if (temp[i + 1] < 0) {
+				cout << " - ";
+				temp[i + 1] = temp[i + 1] * -1;
+			}
+		}
+	}
+
+	if (coefficient[0] == 0 && variable[0] == "" && power[0] == 1) {
+		cout << "No polynomial to display.\n";
+	}
+}
+
+polynomial polynomial::operator-(int terms) {
+	if (coefficient[0] == 0 && variable[0] == "" && power[0] == 1) {
+		cout << "Enter a polynomial first.\n";
+		return *this;
+	}
+	else {
+		for (int i = 0; i < terms; i++) {
+			coefficient[i] = coefficient[i] * -1;
+		}
+		return *this;
+	}
+}
