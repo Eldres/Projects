@@ -1,0 +1,94 @@
+#include <iostream>
+#include <string>
+#include "Poly.h"
+
+using namespace std;
+
+int main() {
+	int choice = -1;
+	polynomial poly;
+	int terms;
+
+	while (choice != 0) {
+		cout << "Choose an option\n ============MENU============\n";
+		cout << "1) Create a polynomial\t 2) Get the degree of a polynomial\t 3) Display coefficient of a term\n";
+		cout << "4) Change the coefficient of a term\t 5) Multiply by a scalar value\t 6) Add two(or more) polynomials\n";
+		cout << "7) Print polynomial\t 8) Negate a polynomial\t 0) Exit program\n";
+		cout << "Enter option: ";
+		cin >> choice;
+
+		while (choice < 0 || choice > 8) {
+			cout << "Invalid entry. Choose an option between 0 to 8.\n";
+			cout << "Choose an option\n ============MENU============\n";
+			cout << "1) Create a polynomial\t 2) Get the degree of a polynomial\t 3) Display coefficient of a term\n";
+			cout << "4) Change the coefficient of a term\t 5) Multiply by a scalar value\t 6) Add two(or more) polynomials\n";
+			cout << "7) Print polynomial\t 8) Negate a polynomial\t 0) Exit program\n";
+			cout << "Enter option: ";
+			cin >> choice;
+		}
+
+		switch (choice) {
+		case 1: //create the polynomial
+			cout << "Enter the number of terms to input: ";
+			cin >> terms;
+			poly.readpoly(terms);
+			break;
+		case 2: // highest degree in polynomial
+			cout << "Highest degree of this polynomial is " << poly.degree();
+			break;
+		case 3://get coefficient
+			int degree;
+			cout << "What degree of the coefficient would you like to see?: ";
+			cin >> degree;
+			while (degree == 0 || degree == 1) {
+				cout << "Invalid power.\n";
+				cout << "What degree of the coefficient would you like to see?: ";
+				cin >> degree;
+			}
+			if (poly.getCoefficient(degree) == 0) {
+				cout << "The degree inputted does not have a coefficient associated to it, or it is not in this polynomial.\n";
+			}
+			else {
+				cout << "The coefficient of that power is " << poly.getCoefficient(degree);
+			}
+			break;
+		case 4: //change coefficient
+			int newCoeff;
+			int power;
+			cout << "What degree is the coefficient you wish to change? ";
+			cin >> power;
+
+			while (power == 0 || power == 1) {
+				cout << "Invalid entry.\n";
+				cout << "What degree is the coefficient you wish to change? ";
+				cin >> power;
+			}
+
+			cout << "What number would you like to replace it with? ";
+			cin >> newCoeff;
+			poly.changeCoefficient(newCoeff, power);
+			break;
+		case 5: //multiply poly
+			int value;
+			cout << "What would you like to multiply this polynomial by? ";
+			cin >> value;
+			poly.multiply(terms, value);
+			break;
+		case 6: // add two(or more) polynomials
+			poly.addPoly(terms);
+			break;
+		case 7: //print polynomial
+			poly.printPoly(terms);
+			break;
+		case 8: //negate polynomial
+			poly.operator-(terms);
+			break;
+		case 0: // exit
+			cout << "Exiting Program.";
+			break;
+		default:
+			cout << "Invalid entry.";
+		}
+	}
+	return 0;
+}
