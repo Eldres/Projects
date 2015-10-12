@@ -174,9 +174,9 @@ void polynomial::addPoly(int &terms) {
 		int tempTerms;
 		cout << "Enter the number of terms you wish to input into the polynomial: ";
 		cin >> tempTerms;
-		int tempCoeff[tempTerms];
-		string tempVar[tempTerms];
-		int tempPwr[tempTerms];
+		int *tempCoeff = new int[tempTerms];
+		string *tempVar = new string[tempTerms];
+		int *tempPwr = new int[tempTerms];
 		for (int i = 0; i < tempTerms; i++) {
 			tempCoeff[i] = 0;
 			tempVar[i] = "";
