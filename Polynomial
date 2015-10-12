@@ -221,7 +221,7 @@ void polynomial::addPoly(int &terms) {
 			count++;
 		}
 		int counter = 0;
-		int temp[50];
+		//int temp[50];
 		int addTerms = terms + tempTerms;
 		int *tempC = new int[addTerms];
 		string *tempV = new string[addTerms];
