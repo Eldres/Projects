@@ -54,9 +54,9 @@ void polynomial::readpoly(int &terms) {
 		}
 		count++;
 	}
-	int tempCoeff[terms];
-	string tempVar[terms];
-	int tempPwr[terms];
+	int *tempCoeff = new int[terms];
+	string *tempVar = new string[terms];
+	int *tempPwr = new int[terms];
 	int counter = 0; //counter for where the polynomial is
 	
 	for (int i = 0; i < terms; i++) {
@@ -222,9 +222,9 @@ void polynomial::addPoly(int &terms) {
 		int counter = 0;
 		int temp[50];
 		int addTerms = terms + tempTerms;
-		int tempC[addTerms];
-		string tempV[addTerms];
-		int tempP[addTerms];
+		int *tempC = new int[addTerms];
+		string *tempV = new string[addTerms];
+		int *tempP = new int[addTerms];
 
 		for (int i = 0; i < addTerms; i++) {
 			tempC[i] = 0;
