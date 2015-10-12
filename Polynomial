@@ -112,6 +112,7 @@ void polynomial::readpoly(int &terms) {
 	}
 
 	terms = counter;
+	delete tempCoeff, tempVar, tempPwr;
 }
 
 int polynomial::degree() {
@@ -289,6 +290,7 @@ void polynomial::addPoly(int &terms) {
 			}
 		}
 		terms = counter;
+		delete tempCoeff, tempVar, tempPwr, tempC, tempV, tempP;
 	}
 }
 
