@@ -1,1 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Generic page for csc412
+        </title>
+        <link rel=" stylesheet " type="text/css" href="site.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <style>
+            ul{
+                list-style-type: none;
+                text-align:center;
+                margin:0;
+                padding:0;
+            }
+            h1{
+                text-align: center;
+                color: black;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>
+            <img src="http://i.imgur.com/9EUzeHf.jpg" alt="Could not load" class="img-rounded" style="width:720px;height:480px;">
+        </h1>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <p>This is the page of Josh Nagel(nageljp).</p>
+            <button type = "button" id="background-button" class="btn btn-success" style = "position: relative">Click to change Background</button>
+            <button type = "button" id = "move-button" class="btn btn-warning">Let's move it!</button>
+            <a href = "index.html" id="home-button" class="btn btn-danger">Home</a>
+            <a href ="about.html" id = "about-button" class="btn btn-info">About</a>
+            <a href ="current.html" id = "current-button" class="btn btn-primary">Current Projects</a>
+            <script>
+            function backgroundFunc(){
+                console.log("Check");
+                $("body").css("background-color", "#"+Math.random().toString(16).substr(-6));
+                $("#background-button").text("Background Changed");
+                //document.body.style.backgroundColor = "#"+(rnd).toString(16)+(rnd).toString(16)+(rnd).toString(16);
+            }
+            document.getElementById("background-button").onclick = backgroundFunc;
+        </script>
+        <script>
+            $(document).ready(function(){
+               $("#move-button").click(function(){
+                  $("#background-button").animate({left: '850px'}, 3000); 
+               });
+            });
+        </script>
+        <!---<ul>
+            <li><a href = "index.html">Home</a></li>
+            <li><a href = "about.html">About</a></li>
+            <li><a href = "current.html">Current Projects</a></li>            
+        </ul>--->
+        <footer><p> My name is Josh Nagel, and I am a student at San Francisco State University.
+            This site is practice for our Csc 412 course provided in the Fall of 2015.</p></footer>
+    </body>    
+</html>
 
