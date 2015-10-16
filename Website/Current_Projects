@@ -1,1 +1,28 @@
-
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Current Projects Being Worked On</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <style>
+            ul{
+                list-style-type: none;
+                text-align:center;
+                margin:0;
+                padding:0;
+            }
+        </style>
+    </head>
+    <body>
+        <a href = "https://github.com/Eldres/Projects" class="btn btn-default">My current repository from GitHub </a>
+        <a href = "index.html" id="home-button" class="btn btn-danger">Home</a>
+        <a href ="about.html" id = "about-button" class="btn btn-info">About</a>
+    </body>
+</html>
