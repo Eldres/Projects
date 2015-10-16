@@ -1,1 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>About</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="site.css">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <style>
+            ul{
+                list-style-type: none;
+                text-align:center;
+                margin:0;
+                padding:0;
+            }
+    </style>
+    </head>
+    <body>
+        <div>
+            <h1 class="centered sansSerif">About</h1>
+            <div>
+                <p> My name is Josh Nagel.</p>
+            </div>
+        </div>
+       <a href = "index.html" id="home-button" class="btn btn-danger">Home</a>
+       <a href ="current.html" id = "current-button" class="btn btn-primary">Current Projects</a>
+    </body>
+</html>
 
