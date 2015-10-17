@@ -21,8 +21,22 @@ and open the template in the editor.
         </style>
     </head>
     <body>
-        <a href = "https://github.com/Eldres/Projects" class="btn btn-default">My current repository from GitHub </a>
-        <a href = "index.html" id="home-button" class="btn btn-danger">Home</a>
-        <a href ="about.html" id = "about-button" class="btn btn-info">About</a>
+        <div class="page-header">
+            <h1>Current Projects<small>For my degree in Computer Science</small></h1>
+        </div>
+        <ul class="nav nav-tabs">
+                <li><a href = "index.html">Home</a></li>
+                <li><a href ="about.html">About</a></li>
+                <li><a href = "//github.com/Eldres/Projects">My current repository from GitHub</a></li>
+            </ul>
+        <p>In my pursuit to obtain a Bachelor's degree in Computer Science, I have been working on a multitude of projects,
+            <br>most of them have been assignments for the classes I need to take in order to get my degree. 
+            <br>However, some are projects that I have done on the side, such as a High-Altitude Balloon project that I did with my dad.</p>
+        <ul>
+            <li>
+                <a href = "//http://jhabproject.com/">HAB Project</a>
+            </li>
+        </ul>
+        <img src="http://jhabproject.com/wp-content/uploads/2012/05/cropped-IMG_0116_2.jpg" alt="Coult not load" style="width:1000px;height:288px">
     </body>
 </html>
