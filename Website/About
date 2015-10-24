@@ -30,21 +30,27 @@
                 font-size: 12pt;
                 color:black;
             }
+            img{
+                text-align: center;
+                margin: 10px;
+            }
         </style>
     </head>
     <body>
         <ul class="nav nav-tabs">
             <li><a href = "index.html">Home</a></li>
             <li><a href ="current.html">Current Projects</a></li>
-        </ul>
-        <h1 class="centered sansSerif">About</h1>
+        </ul>        
+        <h1 class="centered sansSerif">About
+            <img src="https://mail.google.com/mail/u/0/?ui=2&ik=789c08015a&view=fimg&th=1507097e1f5a8b42&attid=0.1&disp=emb&realattid=ii_1507097186dacf26&attbid=ANGjdJ-X0kO9zMrr7Hzwkaz2tx-2SrtYs1xUo2yFp5Z2OI49bEYHcWrctI7CLpE6x4afC_sg3pGQkRUn99_RU6v7ew2QU6dvnYypem-cbePLBXa5QbE1fwaJqZVV0M0&sz=w128-h128&ats=1445713914799&rm=1507097e1f5a8b42&zw&atsh=1">
+        </h1>
         <p>My name is Josh Nagel. I am currently attending San Francisco State University, as of 2014, and am pursuing a bachelor's degree in computer science with a minor in Japanese.
             <br> While attending SFSU, I have learned many things, most of which pertain to my degree, such as java programming language, C++, Assembly, and HTML5 including some PHP.
             <br> Along with these different skills, I am also a member of the SFSU chapter of ACM(Association of Computer Machinery), and through this association I have acquired many unique tools to help me succeed in my field, as well as how to get a job.
-            <br><br>On a more personal level, my interests outside of school consists of video games, studying Japanese, which involves a good amount of time in Japan Town to practice what I'm learning in school.
+            <br><br>On a more personal level, my interests outside of school consists of video games, and studying Japanese, which involves a good amount of time in Japan Town to practice what I'm learning in school.
             <br><br>Some other hobbies I enjoy partaking in are, Dungeons and Dragons with my friends, and the occasional soccer. 
             <br><br>As a side project, my dad and I sent a few high-altitude balloons into the stratosphere, in an attempt to practice coding as well as a practical application of some physics, and navigational skills.
         </p>
-        <ul><li><a href = "//http://jhabproject.com/">HAB Project</a></li></ul>
+        <ul><li><a href="//http://jhabproject.com/">HAB Project</a></li></ul>
     </body>
 </html>
