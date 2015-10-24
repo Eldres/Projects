@@ -3,7 +3,7 @@
     <head>
         <link href='https://fonts.googleapis.com/css?family=Roboto|Slabo+27px|Ubuntu|Old+Standard+TT:400,400italic|Cinzel' rel='stylesheet' type='text/css'>
         <title>
-            Generic page for csc412
+            Home page for csc412
         </title>
         <link rel=" stylesheet " type="text/css" href="site.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -45,10 +45,8 @@
         <button type = "button" id = "move-button" class="btn btn-warning" style = "position:relative">Click Me to Move the Background Button</button>
         <script>
             function backgroundFunc() {
-                //console.log("Check");
                 $("body").css("background-color", "#" + Math.random().toString(16).substr(-6));
                 $("#background-button").text("Background Changed");
-                //document.body.style.backgroundColor = "#"+(rnd).toString(16)+(rnd).toString(16)+(rnd).toString(16);
             }
             document.getElementById("background-button").onclick = backgroundFunc;
         </script>
