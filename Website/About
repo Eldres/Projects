@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>About</title>
+        <link href='https://fonts.googleapis.com/css?family=Roboto|Slabo+27px|Ubuntu|Old+Standard+TT:400,400italic|Cinzel' rel='stylesheet' type='text/css'>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="site.css">
         <!-- Latest compiled and minified CSS -->
@@ -10,22 +11,40 @@
         <style>
             ul{
                 list-style-type: none;
-                text-align:center;
-                margin:0;
-                padding:0;
+                text-align:left;
+                margin:6px;
+                padding:2px;
+                font-family:'Roboto',sans-serif;
             }
-    </style>
+            h1{
+                text-align:left;
+                margin:2px;
+                padding:2.5px;
+                font-family:'Ubuntu',fantasy;
+            }
+            p{
+                text-align:left;
+                margin:5px;
+                padding:2px;
+                font-family:'Cinzel',fantasy;
+                font-size: 12pt;
+                color:black;
+            }
+        </style>
     </head>
     <body>
         <ul class="nav nav-tabs">
-                <li><a href = "index.html">Home</a></li>
-                <li><a href ="current.html">Current Projects</a></li>
-            </ul>
-        <div>
-            <h1 class="centered sansSerif">About</h1>
-            <div>
-                <p> My name is Josh Nagel.</p>
-            </div>
-        </div>
+            <li><a href = "index.html">Home</a></li>
+            <li><a href ="current.html">Current Projects</a></li>
+        </ul>
+        <h1 class="centered sansSerif">About</h1>
+        <p>My name is Josh Nagel. I am currently attending San Francisco State University, as of 2014, and am pursuing a bachelor's degree in computer science with a minor in Japanese.
+            <br> While attending SFSU, I have learned many things, most of which pertain to my degree, such as java programming language, C++, Assembly, and HTML5 including some PHP.
+            <br> Along with these different skills, I am also a member of the SFSU chapter of ACM(Association of Computer Machinery), and through this association I have acquired many unique tools to help me succeed in my field, as well as how to get a job.
+            <br><br>On a more personal level, my interests outside of school consists of video games, studying Japanese, which involves a good amount of time in Japan Town to practice what I'm learning in school.
+            <br><br>Some other hobbies I enjoy partaking in are, Dungeons and Dragons with my friends, and the occasional soccer. 
+            <br><br>As a side project, my dad and I sent a few high-altitude balloons into the stratosphere, in an attempt to practice coding as well as a practical application of some physics, and navigational skills.
+        </p>
+        <ul><li><a href = "//http://jhabproject.com/">HAB Project</a></li></ul>
     </body>
 </html>
