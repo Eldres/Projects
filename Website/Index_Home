@@ -3,7 +3,7 @@
     <head>
         <link href='https://fonts.googleapis.com/css?family=Roboto|Slabo+27px|Ubuntu|Old+Standard+TT:400,400italic|Cinzel' rel='stylesheet' type='text/css'>
         <title>
-            Home page for csc412
+            Generic page for csc412
         </title>
         <link rel=" stylesheet " type="text/css" href="site.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -27,39 +27,52 @@
                 color: black;
                 font-family: 'Oswald', sans-serif;
             }
+            button{
+                position: relative;
+                margin:5px auto;
+            }
         </style>
     </head>
     <body>
         <ul class="nav nav-tabs">
-            <li><a href = "index.html">Home</a></li>
-            <li><a href ="about.html">About</a></li>
-            <li><a href ="current.html">Current Projects</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="current.html">Current Projects</a></li>
         </ul>
-        <h1>
+        <!--<h1>
             <img src="http://i.imgur.com/9EUzeHf.jpg" alt="Could not load" class="img-rounded" style="width:720px;height:480px;">
-        </h1>
-        <audio src="https://www.youtube.com/embed/zp39I_5IpG0" controls><embed src="https://www.youtube.com/embed/zp39I_5IpG0" loop="true" autostart="false"><p>Your web browser does not support this feature</p></audio>
+        </h1>-->
+        <iframe width="500" height="50" src="https://www.youtube.com/embed/zp39I_5IpG0?loop=1" style="position:relative;left:500px;margin:10px auto"></iframe>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <p><br> My name is Josh Nagel, and I am a student at San Francisco State University.
-                This site is practice for our Csc 412 course provided in the Fall of 2015.</p>
-        <button type = "button" id="background-button" class="btn btn-success" style = "position:relative; left:2px">Click to change Background</button>
-        <button type = "button" id = "move-button" class="btn btn-warning" style = "position:relative">Click Me to Move the Background Button</button>
+            This site is practice for our Csc 412 course provided in the Fall of 2015.</p>
+        <button type="button" id="background-button" class="btn btn-success">Change Background</button>
+        <button type="button" id="move-button" class="btn btn-warning">Move Background Button</button>
+        <button type="button" id="reset-button" class="btn btn-primary">Reset Background</button>
         <script>
             function backgroundFunc() {
+                //console.log("Check");
                 $("body").css("background-color", "#" + Math.random().toString(16).substr(-6));
                 $("#background-button").text("Background Changed");
+                //document.body.style.backgroundColor = "#"+(rnd).toString(16)+(rnd).toString(16)+(rnd).toString(16);
             }
             document.getElementById("background-button").onclick = backgroundFunc;
-        </script>
-        <script>
+
             var move = 720;
-            $(document).ready(function () { //this script moves the 'Change background' button back and forth
-                $("#move-button").click(function () {
-                    $("#background-button").animate({left:"+=" + move}, 0);
+            function moveButtonFunc() {
+                $(document).ready(function () { //this script moves the 'Change background' button back and forth
+                    $("#background-button").animate({left: "+=" + move}, 0);
                     move = -move;
                 });
-            });
+            }
+            document.getElementById("move-button").onclick = moveButtonFunc;
+            
+            function resetBackground(){
+                $("body").css("background-color", "#FFFFFF");
+            }
+            document.getElementById("reset-button").onclick = resetBackground;
         </script>
+        <script src="https://www.reddit.com/hot/.embed?limit=5&t=day" type="text/javascript" style="position:relative;margin:5px auto"></script>
         <footer></footer>
     </body>    
 </html>
