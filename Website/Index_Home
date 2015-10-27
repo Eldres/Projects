@@ -38,6 +38,7 @@
         <h1>
             <img src="http://i.imgur.com/9EUzeHf.jpg" alt="Could not load" class="img-rounded" style="width:720px;height:480px;">
         </h1>
+        <audio src="https://www.youtube.com/embed/zp39I_5IpG0" controls><embed src="https://www.youtube.com/embed/zp39I_5IpG0" loop="true" autostart="false"><p>Your web browser does not support this feature</p></audio>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <p><br> My name is Josh Nagel, and I am a student at San Francisco State University.
                 This site is practice for our Csc 412 course provided in the Fall of 2015.</p>
