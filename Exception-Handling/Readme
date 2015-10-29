@@ -1,0 +1,35 @@
+A member function that returns a special error code can also be accomplished by throwing an exception. The following class maintains an account balance, where each member function is implemented as an inline function.
+
+class Account {
+    private:
+        double balance;
+    public:
+        Account():balance(0){}
+        Account(double initialDeposit):balance(initialDeposit){}
+        double getBalance()
+        {
+            return balance;
+        }
+        // returns new balance or -1 if error
+        double deposit(double amount)
+        {
+            if (amount > 0)
+                balance += amount;
+            else
+                return -1; // code indicating error
+            return balance;
+        }
+        // returns new balance or -1 if invalid amount
+        double withdraw(double amount)
+        {
+            if((amount > balance) || (amount < 0))
+                return -1;
+            else
+                balance -= amount;
+            return balance;
+        }
+};
+
+First, use separate compilation to redistribute the information in this class into a header file (.h) and an implementation file (.cpp). Next,  modify the deposit() and withdraw() member functions such that they throw appropriate exceptions instead of returning -1 as an error code. To this end, please define the following three exception classes as derived classes of the standard exception class: (1) Exception_Negative_Deposit, corresponding to the case of depositing a negative amount of money, (2) Exception_Overdraw, corresponding to withdrawing more than the account's balance, and (3) Exception_Negative_Withdraw corresponding to withdrawing a negative amount from an account. You can place these three exception classes in one header file (both the declaration and the implementation).  Finally, write test code that attempts to withdraw and deposit invalid amounts and catches the exceptions that are thrown in a try-catch statement.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
