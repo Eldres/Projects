@@ -1,78 +1,179 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
+<!--
+        Modified
+	Retrospect by TEMPLATED
+-->
 <html>
-    <head>
-        <link href='https://fonts.googleapis.com/css?family=Roboto|Slabo+27px|Ubuntu|Old+Standard+TT:400,400italic|Cinzel' rel='stylesheet' type='text/css'>
-        <title>
-            Generic page for csc412
-        </title>
-        <link rel=" stylesheet " type="text/css" href="site.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        <style>
-            ul{
-                list-style-type: none;
-                text-align:center;
-                margin:10px;
-                padding:0;
-            }
-            h1{
-                margin:25px;
-                text-align: center;
-                color: black;
-                font-family: 'Orbitron', sans-serif;
-            }
-            p{
-                margin:20px;
-                text-align: center;
-                color: black;
-                font-family: 'Oswald', sans-serif;
-            }
-            button{
-                position: relative;
-                margin:5px auto;
-            }
-        </style>
-    </head>
-    <body>
-        <ul class="nav nav-tabs">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="current.html">Current Projects</a></li>
-        </ul>
-        <!--<h1>
-            <img src="http://i.imgur.com/9EUzeHf.jpg" alt="Could not load" class="img-rounded" style="width:720px;height:480px;">
-        </h1>-->
-        <iframe width="500" height="50" src="https://www.youtube.com/embed/zp39I_5IpG0?loop=1" style="position:relative;left:500px;margin:10px auto"></iframe>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <p><br> My name is Josh Nagel, and I am a student at San Francisco State University.
-            This site is practice for our Csc 412 course provided in the Fall of 2015.</p>
-        <button type="button" id="background-button" class="btn btn-success">Change Background</button>
-        <button type="button" id="move-button" class="btn btn-warning">Move Background Button</button>
-        <button type="button" id="reset-button" class="btn btn-primary">Reset Background</button>
-        <script>
-            function backgroundFunc() {
-                //console.log("Check");
-                $("body").css("background-color", "#" + Math.random().toString(16).substr(-6));
-                $("#background-button").text("Background Changed");
-                //document.body.style.backgroundColor = "#"+(rnd).toString(16)+(rnd).toString(16)+(rnd).toString(16);
-            }
-            document.getElementById("background-button").onclick = backgroundFunc;
+	<head>
+		<title>Simple Cooking for the Lazy College Student</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="landing">
+		<!-- Header -->
+			<header id="header" class="alt">
+				<h1><a href="index.html">College Cooking</a></h1>
+				<a href="#nav">Menu</a>
+			</header>
 
-            var move = 720;
-            function moveButtonFunc() {
-                $(document).ready(function () { //this script moves the 'Change background' button back and forth
-                    $("#background-button").animate({left: "+=" + move}, 0);
-                    move = -move;
-                });
-            }
-            document.getElementById("move-button").onclick = moveButtonFunc;
-            
-            function resetBackground(){
-                $("body").css("background-color", "#FFFFFF");
-            }
-            document.getElementById("reset-button").onclick = resetBackground;
-        </script>
-        <script src="https://www.reddit.com/hot/.embed?limit=5&t=day" type="text/javascript" style="position:relative;margin:5px auto"></script>
-        <footer></footer>
-    </body>    
+		<!-- Nav -->
+			<nav id="nav">
+				<ul class="links">
+					<li><a href="index.html">Home</a></li>
+					<li><a href="recipes.html">Recipes</a></li>
+                                        <li><a href="about.html">About Me</a></li>
+                                        <li><a href="current.html">Current Projects</a></li>
+				</ul>
+			</nav>
+
+		<!-- Banner -->
+			<section id="banner">
+				<i class="icon fa-cutlery"></i>
+				<h2>Easy Cooking for College Students</h2>
+				<p>Quick recipes for the busy college student on a budget</p>
+				<!--<ul class="actions">
+					<li><a href="#" class="button big special">Learn More</a></li>
+				</ul>-->
+			</section>
+
+		<!-- One -->
+			<section id="one" class="wrapper style1">
+				<div class="inner">
+					<article class="feature left">
+						<span class="image"><img src="images/pic01.jpg" alt="" /></span>
+						<div class="content">
+							<h2>Crockpot Meatballs</h2>
+							<p>This is a quick recipe for meatballs that you can just make in the crockpot or over the stove. This recipe is great for parties, game night, or even just to have leftovers for the next few days!</p>
+							<ul class="actions">
+								<li>
+									<a href="#" class="button alt">Recipe</a>
+								</li>
+							</ul>
+						</div>
+					</article>
+					<article class="feature right">
+						<span class="image"><img src="images/pic02.jpg" alt="" /></span>
+						<div class="content">
+							<h2>One-Pot Cajun Chicken and Sausage Alfredo Pasta</h2>
+							<p>Here is a great recipe that can be done using only one pot! A super fast meal that makes plenty of food, which is great for when you have friends over.</p>
+							<ul class="actions">
+								<li>
+									<a href="#" class="button alt">Recipe</a>
+								</li>
+							</ul>
+						</div>
+					</article>
+                                        <article class="feature left">
+						<span class="image"><img src="images/pic03.jpg" alt="" /></span>
+						<div class="content">
+							<h2>Chicken Tortilla Soup</h2>
+							<p>This recipe is another super easy crockpot meal. A quick and easy meal to make for those cold San Francisco days.</p>
+							<ul class="actions">
+								<li>
+									<a href="#" class="button alt">Recipe</a>
+								</li>
+							</ul>
+						</div>
+					</article>
+                                        <article class="feature right">
+						<span class="image"><img src="images/pic04.jpg" alt="" /></span>
+						<div class="content">
+							<h2>Sweet and Spicy Chicken over Rice</h2>
+							<p>This simple recipe is incredible quick to make. Makes for a great dinner dish or if you're feeling like a boss, a great date meal.</p>
+							<ul class="actions">
+								<li>
+									<a href="#" class="button alt">Recipe</a>
+								</li>
+							</ul>
+						</div>
+					</article>
+				</div>
+			</section>
+
+		<!-- Two -->
+			<!-- <section id="two" class="wrapper special"> 
+				<div class="inner">
+					<header class="major narrow">
+						<h2>Aliquam Blandit Mauris</h2>
+						<p>Ipsum dolor tempus commodo turpis adipiscing Tempor placerat sed amet accumsan</p>
+					</header>
+					<div class="image-grid">
+						<a href="#" class="image"><img src="images/pic03.jpg" alt="" /></a>
+						<a href="#" class="image"><img src="images/pic04.jpg" alt="" /></a>
+						<a href="#" class="image"><img src="images/pic05.jpg" alt="" /></a>
+						<a href="#" class="image"><img src="images/pic06.jpg" alt="" /></a>
+						<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
+						<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
+						<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
+						<a href="#" class="image"><img src="images/pic10.jpg" alt="" /></a>
+					</div>
+					<ul class="actions">
+						<li><a href="#" class="button big alt">Tempus Aliquam</a></li>
+					</ul>
+				</div>
+			</section> -->
+
+		<!-- Three -->
+			<!-- <section id="three" class="wrapper style3 special">
+				<div class="inner">
+					<header class="major narrow	">
+						<h2>Magna sed consequat tempus</h2>
+						<p>Ipsum dolor tempus commodo turpis adipiscing Tempor placerat sed amet accumsan</p>
+					</header>
+					<ul class="actions">
+						<li><a href="#" class="button big alt">Magna feugiat</a></li>
+					</ul>
+				</div>
+			</section> -->
+
+		<!-- Four -->
+			<!-- <section id="four" class="wrapper style2 special">
+				<div class="inner">
+					<header class="major narrow">
+						<h2>Get in touch</h2>
+						<p>Ipsum dolor tempus commodo adipiscing</p>
+					</header>
+					<form action="#" method="POST">
+						<div class="container 75%">
+							<div class="row uniform 50%">
+								<div class="6u 12u(xsmall)">
+									<input name="name" placeholder="Name" type="text" />
+								</div>
+								<div class="6u 12u(xsmall)">
+									<input name="email" placeholder="Email" type="email" />
+								</div>
+								<div class="12u">
+									<textarea name="message" placeholder="Message" rows="4"></textarea>
+								</div>
+							</div>
+						</div>
+						<ul class="actions">
+							<li><input type="submit" class="special" value="Submit" /></li>
+							<li><input type="reset" class="alt" value="Reset" /></li>
+						</ul>
+					</form>
+				</div>
+			</section> -->
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<ul class="icons">
+						<li><a href="https://www.facebook.com/josh.nagel.58" class="icon fa-facebook">
+							<span class="label">Facebook</span>
+						</a></li>
+						<li><a href="https://www.instagram.com/nageljp27/" class="icon fa-instagram">
+							<span class="label">Instagram</span>
+						</a></li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+	</body>
 </html>
