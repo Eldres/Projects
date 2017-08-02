@@ -1,5 +1,5 @@
 # Projects
-This a repository of all the programs I have created while attending school
+This is a repository of all the programs I have created while attending school
 
 /*
 
